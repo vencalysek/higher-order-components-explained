@@ -1,19 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react'
 
-import withData from '../../with-data';
-
-const UserProfile = ({ data, name, email }) => (
-  <div className='container'>
-    <h1>{name}</h1>
-    <h2>{email}</h2>
-    Posts:
-    {data.map(post => (
-      <div className='post' key={post.id}>
-        <h1>{post.title}</h1>
-        <p> {post.body} </p>
+export class UserProfile extends Component {
+  render() {
+    return (
+      <div className='container'>
+        <h1>{this.props.name}</h1>
+        <h1>{this.props.email}</h1>
       </div>
-    ))}
-  </div>
-);
+    )
+  }
+}
 
-export default withData(UserProfile);
+export default UserProfile
