@@ -1,33 +1,25 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
-const withData = (WrappedComponent) => {
-  class WithData extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        data: [],
-      };
-    }
+const withData = WrappedComponent => {
+  const WithData = props => {
+    const [state, setState] = useState([]);
 
-    componentDidMount() {
-      setTimeout(() => {
-        fetch(this.props.dataSource)
-          .then(response => response.json())
-          .then(data => this.setState({data: data.slice(0, 3)}));
-      }, 500);
-    }
+    useEffect(() => {
+      fetch(props.dataSource)
+        .then(response => response.json())
+        .then(data => setState({data: data.slice(0, 3)}));
+    }, []);
 
-    render() {
+    const {dataSource, ...otherProps} = props;
+    const {data} = state;
 
-      const { dataSource, ...otherProps } = this.props 
+    return state.length < 1 ? (
+      <h1>Loading</h1>
+    ) : (
+      <WrappedComponent data={data} {...otherProps} />
+    );
+  };
 
-      return this.state.data.length < 1 ? (
-        <h1>Loading</h1>
-      ) : (
-        <WrappedComponent data={this.state.data} {...otherProps} />
-      );
-    }
-  }
   return WithData;
 };
 
