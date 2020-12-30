@@ -1,13 +1,15 @@
 import React from "react";
 
 import UserProfile from "./components/user-profile/user-profile.component";
+import UserList from "./components/user-list/user-list.component";
 
-import "./App.css";
+import './App.css'
 
 function App() {
   return (
     <div className="App">
-      <UserProfile name="Vasek" email="vaseklysek@gmail.com" />
+      <UserList dataSource="https://jsonplaceholder.typicode.com/users" />
+      <UserProfile name="Vasek" email="vaseklysek@gmail.com" dataSource="https://jsonplaceholder.typicode.com/posts" />
     </div>
   );
 }
